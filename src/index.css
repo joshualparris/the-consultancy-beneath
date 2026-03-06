@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=JetBrains+Mono:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Share+Tech+Mono&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -6,47 +6,50 @@
 
 @layer base {
   :root {
-    --background: 240 20% 4%;
-    --foreground: 120 100% 80%;
+    --background: 20 100% 5%;
+    --foreground: 45 90% 85%;
 
-    --card: 240 15% 8%;
-    --card-foreground: 120 60% 70%;
+    --card: 20 60% 8%;
+    --card-foreground: 45 80% 80%;
 
-    --popover: 240 15% 8%;
-    --popover-foreground: 120 60% 70%;
+    --popover: 20 60% 8%;
+    --popover-foreground: 45 80% 80%;
 
-    --primary: 120 100% 54%;
-    --primary-foreground: 240 20% 4%;
+    --primary: 48 97% 77%;
+    --primary-foreground: 20 100% 5%;
 
-    --secondary: 240 10% 14%;
-    --secondary-foreground: 120 40% 65%;
+    --secondary: 25 40% 12%;
+    --secondary-foreground: 45 60% 70%;
 
-    --muted: 240 10% 12%;
-    --muted-foreground: 120 10% 45%;
+    --muted: 25 30% 14%;
+    --muted-foreground: 35 20% 50%;
 
-    --accent: 38 100% 55%;
-    --accent-foreground: 240 20% 4%;
+    --accent: 270 70% 55%;
+    --accent-foreground: 0 0% 98%;
 
-    --destructive: 0 80% 50%;
+    --destructive: 0 80% 45%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 120 30% 15%;
-    --input: 240 10% 14%;
-    --ring: 120 100% 54%;
+    --border: 30 40% 18%;
+    --input: 25 30% 14%;
+    --ring: 48 97% 77%;
 
     --radius: 0.25rem;
 
     --hp: 0 70% 50%;
-    --corruption: 280 80% 55%;
-    --truth: 200 90% 55%;
-    --gold: 45 100% 50%;
+    --hp-bg: 0 40% 15%;
+    --arcane: 270 70% 55%;
+    --gold-color: 45 100% 50%;
+    --blood: 0 80% 40%;
+    --heal: 120 60% 45%;
+    --parchment: 35 30% 15%;
 
     --font-display: 'Cinzel', serif;
-    --font-mono: 'JetBrains Mono', monospace;
+    --font-mono: 'Share Tech Mono', monospace;
 
-    --glow-primary: 0 0 12px hsl(120 100% 54% / 0.4);
-    --glow-accent: 0 0 12px hsl(38 100% 55% / 0.4);
-    --glow-danger: 0 0 12px hsl(0 80% 50% / 0.4);
+    --glow-gold: 0 0 12px hsl(48 97% 77% / 0.4);
+    --glow-arcane: 0 0 15px hsl(270 70% 55% / 0.5);
+    --glow-blood: 0 0 10px hsl(0 80% 45% / 0.5);
   }
 }
 
@@ -54,12 +57,10 @@
   * {
     @apply border-border;
   }
-
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-mono);
   }
-
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-display);
   }
@@ -68,11 +69,21 @@
 @layer components {
   .rpg-panel {
     @apply bg-card border border-border rounded-sm p-3;
-    box-shadow: inset 0 0 20px hsl(120 100% 54% / 0.03);
+    box-shadow: inset 0 0 30px hsl(20 100% 5% / 0.5), 0 0 1px hsl(48 97% 77% / 0.15);
+  }
+
+  .rpg-panel-active {
+    @apply rpg-panel;
+    border-color: hsl(48 97% 77% / 0.4);
+    box-shadow: inset 0 0 30px hsl(20 100% 5% / 0.5), 0 0 8px hsl(48 97% 77% / 0.15);
   }
 
   .rpg-glow {
-    text-shadow: var(--glow-primary);
+    text-shadow: var(--glow-gold);
+  }
+
+  .rpg-glow-arcane {
+    text-shadow: var(--glow-arcane);
   }
 
   .rpg-label {
@@ -82,17 +93,39 @@
 
   .stat-value {
     @apply text-primary font-bold;
-    text-shadow: var(--glow-primary);
+    text-shadow: var(--glow-gold);
   }
 
-  .hp-bar {
-    @apply h-2 rounded-full;
-    background: linear-gradient(90deg, hsl(var(--hp)), hsl(0 90% 40%));
-    box-shadow: var(--glow-danger);
+  .damage-text {
+    color: hsl(var(--blood));
+    text-shadow: var(--glow-blood);
+    font-weight: bold;
+  }
+
+  .heal-text {
+    color: hsl(var(--heal));
+    font-weight: bold;
+  }
+
+  .arcane-text {
+    color: hsl(var(--arcane));
+    text-shadow: var(--glow-arcane);
+    font-weight: bold;
+  }
+
+  .hp-bar-track {
+    @apply h-3 rounded-full overflow-hidden;
+    background: hsl(var(--hp-bg));
+  }
+
+  .hp-bar-fill {
+    @apply h-full rounded-full transition-all duration-500;
+    background: linear-gradient(90deg, hsl(var(--hp)), hsl(0 90% 35%));
+    box-shadow: var(--glow-blood);
   }
 
   .event-log-entry {
-    @apply text-xs py-1 border-b border-border/30 text-muted-foreground;
+    @apply text-xs py-1 border-b border-border/30;
     font-family: var(--font-mono);
   }
 
@@ -101,54 +134,165 @@
     font-family: var(--font-mono);
   }
 
-  .minimap-cell {
-    @apply w-3 h-3 border border-border/40 transition-colors duration-200;
+  .ability-slot {
+    @apply w-10 h-10 rounded-sm bg-secondary border border-border flex items-center justify-center text-xs text-muted-foreground cursor-pointer hover:border-primary hover:text-primary transition-colors;
   }
 
-  .minimap-cell-active {
-    @apply bg-primary;
-    box-shadow: var(--glow-primary);
+  .inventory-slot {
+    @apply w-14 h-14 rounded-sm bg-secondary/50 border border-border/60 flex flex-col items-center justify-center text-xs cursor-pointer transition-all;
   }
 
-  .minimap-cell-visited {
-    @apply bg-secondary;
+  .inventory-slot:hover {
+    border-color: hsl(48 97% 77% / 0.5);
+    box-shadow: 0 0 8px hsl(48 97% 77% / 0.15);
+  }
+
+  .inventory-slot-filled {
+    @apply inventory-slot;
+    border-color: hsl(30 40% 25%);
+    background: hsl(25 30% 10%);
   }
 
   .quest-item {
     @apply text-xs py-2 border-b border-border/20;
   }
 
-  .ability-slot {
-    @apply w-10 h-10 rounded-sm bg-secondary border border-border flex items-center justify-center text-xs text-muted-foreground cursor-pointer hover:border-primary hover:text-primary transition-colors;
+  .action-btn {
+    @apply text-xs px-4 py-2 rounded-sm font-mono font-bold transition-all border;
+  }
+
+  .action-btn-attack {
+    @apply action-btn;
+    @apply border-destructive text-destructive hover:bg-destructive hover:text-destructive-foreground;
+  }
+
+  .action-btn-spell {
+    @apply action-btn;
+    border-color: hsl(var(--arcane));
+    color: hsl(var(--arcane));
+  }
+
+  .action-btn-spell:hover {
+    background: hsl(var(--arcane));
+    color: white;
+  }
+
+  .action-btn-defend {
+    @apply action-btn;
+    @apply border-primary text-primary hover:bg-primary hover:text-primary-foreground;
+  }
+
+  .action-btn-flee {
+    @apply action-btn;
+    @apply border-muted-foreground text-muted-foreground hover:bg-muted hover:text-foreground;
+  }
+
+  .dice-result {
+    @apply inline-flex items-center justify-center w-10 h-10 rounded border-2 font-bold text-lg;
+    font-family: var(--font-display);
+  }
+
+  .dice-nat20 {
+    @apply dice-result border-primary text-primary;
+    box-shadow: var(--glow-gold);
+    animation: pulse-glow 1s ease-in-out infinite;
+  }
+
+  .dice-nat1 {
+    @apply dice-result border-destructive text-destructive;
+    box-shadow: var(--glow-blood);
+  }
+
+  .dice-normal {
+    @apply dice-result border-border text-card-foreground;
+  }
+
+  .room-cell {
+    @apply w-8 h-8 border border-border/30 flex items-center justify-center text-xs transition-all cursor-pointer;
+    font-family: var(--font-mono);
+  }
+
+  .room-cell-current {
+    @apply room-cell;
+    background: hsl(48 97% 77% / 0.15);
+    border-color: hsl(48 97% 77% / 0.5);
+    box-shadow: 0 0 6px hsl(48 97% 77% / 0.2);
+  }
+
+  .room-cell-visited {
+    @apply room-cell;
+    background: hsl(25 30% 10%);
+    border-color: hsl(30 30% 20%);
+  }
+
+  .room-cell-unknown {
+    @apply room-cell;
+    background: hsl(20 100% 3%);
+  }
+
+  .npc-bubble {
+    @apply rpg-panel relative;
+    border-color: hsl(48 97% 77% / 0.3);
+  }
+
+  .npc-bubble::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 12px;
+    width: 0;
+    height: 0;
+    border-top: 6px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-right: 8px solid hsl(48 97% 77% / 0.3);
+  }
+
+  .tooltip-item {
+    @apply absolute z-50 rpg-panel text-xs p-2 w-48;
+    border-color: hsl(48 97% 77% / 0.3);
+    pointer-events: none;
+  }
+
+  .skill-check-overlay {
+    @apply fixed inset-0 z-40 flex items-center justify-center;
+    background: hsl(20 100% 3% / 0.85);
   }
 }
 
-@keyframes scanline {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100vh); }
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px hsl(48 97% 77% / 0.3); }
+  50% { box-shadow: 0 0 20px hsl(48 97% 77% / 0.6); }
 }
 
-@keyframes flicker {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.97; }
-  92% { opacity: 0.95; }
-  94% { opacity: 1; }
+@keyframes dice-spin {
+  0% { transform: rotateX(0deg) rotateZ(0deg); }
+  100% { transform: rotateX(720deg) rotateZ(360deg); }
 }
 
-.scanline-overlay {
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  background: repeating-linear-gradient(
-    0deg,
-    transparent,
-    transparent 2px,
-    hsl(120 100% 54% / 0.015) 2px,
-    hsl(120 100% 54% / 0.015) 4px
-  );
-  z-index: 50;
+@keyframes dice-bounce {
+  0% { transform: translateY(-20px) scale(0.8); opacity: 0; }
+  50% { transform: translateY(5px) scale(1.1); }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
 }
 
-.flicker {
-  animation: flicker 4s infinite;
+@keyframes damage-flash {
+  0% { color: hsl(0 80% 60%); transform: scale(1.5); opacity: 1; }
+  100% { color: hsl(0 80% 40%); transform: scale(1); opacity: 0.8; }
+}
+
+@keyframes fade-in-up {
+  0% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.animate-dice-bounce {
+  animation: dice-bounce 0.5s ease-out forwards;
+}
+
+.animate-damage-flash {
+  animation: damage-flash 0.4s ease-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 0.4s ease-out forwards;
 }
