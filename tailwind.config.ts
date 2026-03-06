@@ -8,14 +8,12 @@ export default {
     container: {
       center: true,
       padding: "2rem",
-      screens: {
-        "2xl": "1400px",
-      },
+      screens: { "2xl": "1400px" },
     },
     extend: {
       fontFamily: {
         display: ["Cinzel", "serif"],
-        mono: ["JetBrains Mono", "monospace"],
+        mono: ["Share Tech Mono", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -52,9 +50,11 @@ export default {
           foreground: "hsl(var(--card-foreground))",
         },
         hp: "hsl(var(--hp))",
-        corruption: "hsl(var(--corruption))",
-        truth: "hsl(var(--truth))",
-        gold: "hsl(var(--gold))",
+        arcane: "hsl(var(--arcane))",
+        gold: "hsl(var(--gold-color))",
+        blood: "hsl(var(--blood))",
+        heal: "hsl(var(--heal))",
+        parchment: "hsl(var(--parchment))",
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -70,10 +70,15 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
+        "fade-in": {
+          "0%": { opacity: "0", transform: "translateY(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in": "fade-in 0.3s ease-out",
       },
     },
   },
