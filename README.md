@@ -71,3 +71,11 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+## Engineering standard
+
+Engineering principles: v5.1  
+Assurance tier: 1  
+Canonical repository: https://github.com/joshualparris/the-consultancy-beneath
+
+https://github.com/joshuaparrisdadlan-stack/the-consultancy-beneath is an archive of the original March 2026 version (repository role: archive). Do not develop there.
